@@ -22,8 +22,12 @@ def solve_sudoku(path_img, path_model, print_unsolved=False):
     might add some kind of board editing tool later on
     """
     model = tf.keras.models.load_model(path_model)
-
-    tiles = generate_board_tiles(path_img)
+    try:
+        tiles = generate_board_tiles(path_img)
+    except:
+        print("Couldn't read your image file. "
+              "Please verify the Path or if the whole board is correctly included in the picture.")
+        return
     board_raw = model(tiles)
     board_clean = np.argmax(board_raw, axis=1).reshape((9, 9))
     if print_unsolved:
@@ -31,6 +35,7 @@ def solve_sudoku(path_img, path_model, print_unsolved=False):
     solver.run_solver(board_clean)
 
 
-image_path = "test_pic/sudoku_shit_angle.jpg.jpg"
+# image_path = "test_pic/sudoku_shit_angle.jpg"
+image_path = input("Please submit the directory of your sudoku picture: ")
 model_path = "digit_reco_model"
 solve_sudoku(image_path, model_path)
