@@ -35,7 +35,6 @@ def solve_sudoku(path_img, path_model, print_unsolved=False):
     solver.run_solver(board_clean)
 
 
-# image_path = "test_pic/sudoku_shit_angle.jpg"
 image_path = input("Please submit the directory of your sudoku picture: ")
 model_path = "digit_reco_model"
 solve_sudoku(image_path, model_path)
